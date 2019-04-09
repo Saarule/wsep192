@@ -34,5 +34,10 @@ namespace ServiceLayer
         {
             return storeOwners;
         }
+
+        public List<Product> getProducts()
+        {
+            return products;
+        }
     }
 }

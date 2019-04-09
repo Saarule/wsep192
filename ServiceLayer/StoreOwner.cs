@@ -6,40 +6,52 @@ namespace ServiceLayer
 {
     public class StoreOwner : User
     {
-        private int storeID;
+        private List<Store> stores;
 
         public StoreOwner(string user_name, string password) : base(user_name, password)
         {
+            stores = new List<Store>();
         }
 
-        public void setStore(int storeID)
+        public void addStore(Store store)
         {
-            this.storeID = storeID;
+            stores.Add(store);
         }
 
-        public int getStore()
+        public List<Store> getStores()
         {
-            return this.storeID;
+            return stores;
         }
 
-        public void addProduct()
+        public bool addProduct(Product p, Store store)
         {
-
+            if (!stores.Contains(store) || store.getProducts().Contains(p))
+                return false;
+            store.getProducts().Add(p);
+            return true;
         }
 
-        public void deleteProduct()
+        public bool deleteProduct(Product p, Store store)
         {
-
+            if (!stores.Contains(store) || !store.getProducts().Contains(p))
+                return false;
+            store.getProducts().Remove(p);
+            return true;
         }
 
-        public void editProduct()
+        public bool editProduct(Product p, Store store, Product newProd)
         {
-
+            if (!stores.Contains(store) || !store.getProducts().Contains(p))
+                return false;
+            store.getProducts().Remove(p);
+            store.getProducts().Add(newProd);
+            return true;
         }
 
-        public void addStoreOwner()
+        public bool addStoreOwner(Store store, User user)
         {
-
+            //TODO
+            return true;
         }
 
         public void addStoreManager()
