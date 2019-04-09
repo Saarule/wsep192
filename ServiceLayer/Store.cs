@@ -12,7 +12,7 @@ namespace ServiceLayer
         private SalesPolicy salesPolicy;
         private int storeID;
         private String name;
-        private List<string> storeOwners;
+        public List<string> storeOwners;
 
         public Store(int storeId, string storeName, string storeOwnerName)
         {

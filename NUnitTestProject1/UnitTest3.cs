@@ -42,6 +42,8 @@ namespace Tests
             s1.logout("Nati");
             bool ans3 = s1.openStore("storeName2","Nati");
             Assert.AreEqual(ans3, false);
+            
+            ServiceLayer.System.Reset();
 
         }
     }
