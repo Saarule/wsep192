@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ServiceLayer
 {
-    class Store
+    public class Store
     {
         private List<Product> products;
         private BuyingPolicy buyingPolicy;
@@ -14,14 +14,25 @@ namespace ServiceLayer
         private String name;
         private List<StoreOwner> storeOwners;
 
-        public Store()
+        public Store(int storeId, string storeName, StoreOwner storeOwner)
         {
             products = new List<Product>();
             buyingPolicy = new BuyingPolicy();
             purchasePolicy = new PurchasePolicy();
             salesPolicy = new SalesPolicy();
             storeOwners = new List<StoreOwner>();
+            storeOwners.Add(storeOwner);
+            storeID = storeId;
         }
 
+        public string getName()
+        {
+            return this.name;
+        }
+
+        public List<StoreOwner> getStoreOwners()
+        {
+            return storeOwners;
+        }
     }
 }

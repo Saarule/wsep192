@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ServiceLayer
 {
-    class Guest
+    public class Guest
     {
         public bool register(List<Costumer> costumers, bool initialized, string userName, string password)
         {

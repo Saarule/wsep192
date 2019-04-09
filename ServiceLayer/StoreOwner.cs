@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ServiceLayer
 {
-    class StoreOwner : User
+    public class StoreOwner : User
     {
         private int storeID;
 

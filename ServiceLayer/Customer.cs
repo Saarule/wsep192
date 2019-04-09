@@ -4,10 +4,11 @@ using System.Text;
 
 namespace ServiceLayer
 {
-    class Costumer
+    public class Costumer
     {
         private List<Cart> carts;
         private User currentState;
+        public bool loggedin =false;
 
         public Costumer(User state)
         {
@@ -44,8 +45,9 @@ namespace ServiceLayer
         {
             return this.currentState;
         }
-
-
-
+        public void setGuestState()
+        {
+            currentState = null;
+        }
     }
 }

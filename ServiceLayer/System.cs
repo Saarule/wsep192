@@ -14,6 +14,7 @@ namespace ServiceLayer
         private List<Costumer> costumers;
         private bool signedin = false;
         private Guest global_guest;
+        private List<Store> stores;
 
 
         private System(string userName, string password)
@@ -78,6 +79,35 @@ namespace ServiceLayer
         }
 
 
+        public bool logout(string username)
+        {
+            foreach (Costumer c in costumers)
+            {
+                if (c.getCurrentState().getUserName().Equals(username))
+                {
+                    if (!(c.loggedin))
+                    {
+                        return false;
+                    }
+                    c.loggedin = false;
+                    c.setGuestState();
+                    return true;
+                }
+            }
+            return false;
+        }
 
+        public bool openStore(string storename)
+        {
+            foreach (var sto in stores)
+            {
+                if (sto.getName().Equals(storename))
+                {
+                    return false;
+                }
+            }
+            stores.Add(new Store());
+            
+        }
     }
 }
