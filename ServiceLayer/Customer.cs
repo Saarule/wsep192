@@ -4,13 +4,13 @@ using System.Text;
 
 namespace ServiceLayer
 {
-    public class Costumer
+    public class Customer
     {
         private List<Cart> carts;
         private User currentState;
         public bool loggedin =false;
 
-        public Costumer(User state)
+        public Customer(User state)
         {
             carts = new List<Cart>();
             this.currentState = state;

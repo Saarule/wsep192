@@ -12,7 +12,7 @@ namespace ServiceLayer
     {
         private static System sys;
         public bool initialized = false;
-        private List<Costumer> costumers;
+        private List<Customer> costumers;
         private bool signedin = false;
         private Guest global_guest;
         private List<Store> stores;
@@ -20,7 +20,7 @@ namespace ServiceLayer
 
         private System(string userName, string password)
         {
-            costumers = new List<Costumer>();
+            costumers = new List<Customer>();
             createGuest();
             Console.WriteLine("Connecting to External systems ...");
             connectExternalSystems();
@@ -83,7 +83,7 @@ namespace ServiceLayer
 
         public bool logout(string username)
         {
-            foreach (Costumer c in costumers)
+            foreach (Customer c in costumers)
             {
                 if (c.getCurrentState().getUserName().Equals(username))
                 {

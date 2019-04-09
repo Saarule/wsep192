@@ -12,16 +12,16 @@ namespace ServiceLayer
         private SalesPolicy salesPolicy;
         private int storeID;
         private String name;
-        public List<string> storeOwners;
+        private List<string> storeOwners;
 
-        public Store(int storeId, string storeName, string storeOwnerName)
+        public Store(int storeId, string storeName, string storeOwner)
         {
             products = new List<Product>();
             buyingPolicy = new BuyingPolicy();
             purchasePolicy = new PurchasePolicy();
             salesPolicy = new SalesPolicy();
             storeOwners = new List<string>();
-            storeOwners.Add(storeOwnerName);
+            storeOwners.Add(storeOwner);
             storeID = storeId;
         }
 
