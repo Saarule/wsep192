@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using BussinessLayer.Market;
 using BussinessLayer.UsersManagment;
 
@@ -15,7 +16,7 @@ namespace ServiceLayer
         private bool signedin = false;
         private Guest global_guest;
         private List<Store> stores;
-
+        private int storeId = 10000;
 
         private System(string userName, string password)
         {
@@ -97,7 +98,7 @@ namespace ServiceLayer
             return false;
         }
 
-        public bool openStore(string storename)
+        public bool openStore(string storename,string userName)
         {
             foreach (var sto in stores)
             {
@@ -106,8 +107,18 @@ namespace ServiceLayer
                     return false;
                 }
             }
-            stores.Add(new Store());
             
+            foreach (var cos in costumers)
+            {
+                if (cos.getCurrentState().getUserName().Equals(userName))
+                {
+                    Interlocked.Increment(ref storeId);
+                    stores.Add(new Store(storeId,storename,(userName)));
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
