@@ -12,15 +12,15 @@ namespace ServiceLayer
         private SalesPolicy salesPolicy;
         private int storeID;
         private String name;
-        private List<StoreOwner> storeOwners;
+        private List<string> storeOwners;
 
-        public Store(int storeId, string storeName, StoreOwner storeOwner)
+        public Store(int storeId, string storeName, string storeOwner)
         {
             products = new List<Product>();
             buyingPolicy = new BuyingPolicy();
             purchasePolicy = new PurchasePolicy();
             salesPolicy = new SalesPolicy();
-            storeOwners = new List<StoreOwner>();
+            storeOwners = new List<string>();
             storeOwners.Add(storeOwner);
             storeID = storeId;
         }
@@ -30,7 +30,7 @@ namespace ServiceLayer
             return this.name;
         }
 
-        public List<StoreOwner> getStoreOwners()
+        public List<string> getStoreOwners()
         {
             return storeOwners;
         }

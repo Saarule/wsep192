@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using BussinessLayer.Market;
 using BussinessLayer.UsersManagment;
 
@@ -11,15 +12,15 @@ namespace ServiceLayer
     {
         private static System sys;
         public bool initialized = false;
-        private List<Costumer> costumers;
+        private List<Customer> costumers;
         private bool signedin = false;
         private Guest global_guest;
         private List<Store> stores;
-
+        private int storeId = 10000;
 
         private System(string userName, string password)
         {
-            costumers = new List<Costumer>();
+            costumers = new List<Customer>();
             createGuest();
             Console.WriteLine("Connecting to External systems ...");
             connectExternalSystems();
@@ -67,7 +68,8 @@ namespace ServiceLayer
             {
                 Console.WriteLine("Welcome Guest, what would you like to do today?");
                 Console.WriteLine("Please enter the number of the requested action:");
-                Console.WriteLine("1. log in\n 2. Search Products\n 3. add products to cart\n 4. watch and edit cart\n 5. buy products \n ");
+                Console.WriteLine(
+                    "1. log in\n 2. Search Products\n 3. add products to cart\n 4. watch and edit cart\n 5. buy products \n ");
 
 
             }
@@ -81,7 +83,7 @@ namespace ServiceLayer
 
         public bool logout(string username)
         {
-            foreach (Costumer c in costumers)
+            foreach (Customer c in costumers)
             {
                 if (c.getCurrentState().getUserName().Equals(username))
                 {
@@ -89,15 +91,17 @@ namespace ServiceLayer
                     {
                         return false;
                     }
+
                     c.loggedin = false;
                     c.setGuestState();
                     return true;
                 }
             }
+
             return false;
         }
 
-        public bool openStore(string storename)
+        public bool openStore(string storename, string userName)
         {
             foreach (var sto in stores)
             {
@@ -106,8 +110,31 @@ namespace ServiceLayer
                     return false;
                 }
             }
-            stores.Add(new Store());
-            
+
+            foreach (var cos in costumers)
+            {
+                if (cos.getCurrentState().getUserName().Equals(userName))
+                {
+                    Interlocked.Increment(ref storeId);
+                    stores.Add(new Store(storeId, storename, (userName)));
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool addMangerToStore(string storename, string username)
+        {
+            foreach (var sto in stores)
+            {
+                if (sto.getName().Equals(storename))
+                {
+                    sto.storeOwners.Add(username);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

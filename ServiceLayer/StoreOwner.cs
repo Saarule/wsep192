@@ -7,6 +7,7 @@ namespace ServiceLayer
     public class StoreOwner : User
     {
         private List<Store> stores;
+        private List<string> children;
 
         public StoreOwner(string user_name, string password) : base(user_name, password)
         {
@@ -48,20 +49,29 @@ namespace ServiceLayer
             return true;
         }
 
-        public bool addStoreOwner(Store store, User user)
+        public bool addStoreOwner(Store store, string customerName)
         {
-            //TODO
+            if (store.getStoreOwners().Contains(customerName))
+                return false;
+            store.getStoreOwners().Add(customerName);
             return true;
         }
 
-        public void addStoreManager()
+        public bool addStoreManager(Store store, string customerName)
         {
-
+            if (store.getStoreOwners().Contains(customerName))
+                return false;
+            store.getStoreOwners().Add(customerName);
+            return true;
         }
 
-        public void removeStoreOwner()
+        public bool removeStoreOwner(Store store, string customerName)
         {
-
+            if (!stores.Contains(store))
+                return false;
+            int num = stores.IndexOf(store);
+            stores[num].getStoreOwners().Remove(customerName);
+            return true;
         }
 
     }
