@@ -6,17 +6,20 @@ namespace ServiceLayer
 {
     public class StoreOwner : User
     {
-        private List<Store> stores;
-        private List<string> children;
+        protected List<Store> stores;
+        protected List<string> children;
 
         public StoreOwner(string user_name, string password) : base(user_name, password)
         {
             stores = new List<Store>();
         }
 
-        public void addStore(Store store)
+        public virtual bool addStore(Store store)
         {
+            if (stores.Contains(store))
+                return false;
             stores.Add(store);
+            return true;
         }
 
         public List<Store> getStores()
@@ -24,7 +27,7 @@ namespace ServiceLayer
             return stores;
         }
 
-        public bool addProduct(Product p, Store store)
+        public virtual bool addProduct(Product p, Store store)
         {
             if (!stores.Contains(store) || store.getProducts().Contains(p))
                 return false;
@@ -32,7 +35,7 @@ namespace ServiceLayer
             return true;
         }
 
-        public bool deleteProduct(Product p, Store store)
+        public virtual bool deleteProduct(Product p, Store store)
         {
             if (!stores.Contains(store) || !store.getProducts().Contains(p))
                 return false;
@@ -40,7 +43,7 @@ namespace ServiceLayer
             return true;
         }
 
-        public bool editProduct(Product p, Store store, Product newProd)
+        public virtual bool editProduct(Product p, Store store, Product newProd)
         {
             if (!stores.Contains(store) || !store.getProducts().Contains(p))
                 return false;
@@ -49,7 +52,7 @@ namespace ServiceLayer
             return true;
         }
 
-        public bool addStoreOwner(Store store, string customerName)
+        public virtual bool addStoreOwner(Store store, string customerName)
         {
             if (store.getStoreOwners().Contains(customerName))
                 return false;
@@ -57,7 +60,7 @@ namespace ServiceLayer
             return true;
         }
 
-        public bool addStoreManager(Store store, string customerName)
+        public virtual bool addStoreManager(Store store, string customerName)
         {
             if (store.getStoreOwners().Contains(customerName))
                 return false;
@@ -65,7 +68,7 @@ namespace ServiceLayer
             return true;
         }
 
-        public bool removeStoreOwner(Store store, string customerName)
+        public virtual bool removeStoreOwner(Store store, string customerName)
         {
             if (!stores.Contains(store))
                 return false;
